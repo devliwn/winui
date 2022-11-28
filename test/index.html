@@ -5,7 +5,6 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>W10 Component library</title>
-        <link rel="stylesheet" href="../dist/w10.min.css" />
         <style>
             * {
                 padding: 0;
@@ -13,7 +12,7 @@
                 box-sizing: border-box;
             }
             body {
-                background-color: #fff;
+                background-color: #fafafa;
             }
             .light {
                 padding: 5px;
@@ -59,10 +58,10 @@
         <p>textField</p>
         <div class="flexbox" style="display: flex; gap: 6px; margin-bottom: 5px;">
             <div class="light">
-                <input class="text-field text-field-light text-field-normal" placeholder="Placeholder">
+                <field class="text-box" theme="light" placeholder="Placeholder"></field>
             </div>
             <div class="dark">
-                <input class="text-field text-field-dark text-field-normal" placeholder="Placeholder">
+                <field class="text-box" theme="dark" placeholder="Placeholder"></field>
             </div>
         </div>
     </div>

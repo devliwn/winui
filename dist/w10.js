@@ -307,3 +307,85 @@ document.querySelectorAll(".btn").forEach((btn) => {
         btn.style.pointerEvents = "none";
     }
 });
+document.querySelectorAll(".text-box").forEach((field) => {
+    function width() {
+        if (field.getAttribute("width") == null) {
+            return "150px";
+        } else {
+            return field.getAttribute("width") + "px";
+        }
+    }
+    console.log(field.outerHTML);
+    field.style.display = "block";
+    field.style.width = width();
+    field.style.outline = "none";
+    field.style.borderRadius = "4px";
+    field.style.position = "relative";
+    field.style.overflow = "hidden";
+    field.style.boxShadow = "0 0 10px 0 rgba(0, 0, 0, 0.1)";
+    field.insertAdjacentHTML(
+        "afterbegin",
+        `
+    <input class="${field.getAttribute("class")}" id="${field.getAttribute(
+            "id"
+        )}" placeholder="${field.getAttribute(
+            "placeholder"
+        )}" name="${field.getAttribute("name")}">
+    <div class="underline"></div>
+    `
+    );
+    const line = field.querySelector(".underline");
+    const input = field.querySelector("input");
+    input.style.padding = "5px 35px 5px 11px";
+    input.style.width = "100%";
+    input.style.border = "none";
+    input.style.outline = "none";
+    input.style.fontSize = "14px";
+    input.style.lineHeight = "20px";
+    input.style.backgroundColor = "transparent";
+    input.style.borderRadius = "4px";
+    line.style.position = "absolute";
+    line.style.bottom = 0;
+    line.style.left = 0;
+    line.style.height = "1px";
+    line.style.width = "100%";
+    line.style.display = "block";
+    line.style.backgroundColor = "red";
+    if (getTheme(field, "theme") == "light") {
+        function color() {
+            if (field.getAttribute("color") == null) {
+                return "#005FB8";
+            } else {
+                return field.getAttribute("color");
+            }
+        }
+        field.style.backgroundColor = "rgba(255, 255, 255, 30%)";
+        input.style.border = "1px solid rgba(0, 0, 0, 10.78%)";
+        line.style.backgroundColor = "rgba(0, 0, 0, 44.58%)";
+        input.addEventListener("mouseover", function () {
+            field.style.backgroundColor = "#F9F9F9";
+        });
+        input.addEventListener("mouseleave", function () {
+            field.style.backgroundColor = "rgba(255, 255, 255, 30%)";
+        });
+        input.addEventListener("click", function () {
+            field.style.backgroundColor = "#fff";
+            line.style.backgroundColor = color();
+            line.style.height = "2px";
+            input.addEventListener("mouseover", function () {
+                field.style.backgroundColor = "#fff";
+            });
+            input.addEventListener("mouseleave", function () {
+                field.style.backgroundColor = "#fff";
+            });
+        });
+        input.addEventListener("blur", function () {
+            field.style.backgroundColor = "rgba(255, 255, 255, 30%)";
+            line.style.backgroundColor = "rgba(0, 0, 0, 44.58%)";
+            line.style.height = "1px";
+            input.addEventListener("mouseover", function () {
+                field.style.backgroundColor = "#f9f9f9";
+            });
+        });
+    }
+});
