@@ -32,6 +32,7 @@ function getType(component, type) {
     return componentType;
 }
 document.querySelectorAll(".btn").forEach((btn) => {
+    btn.style.userSelect = "none";
     btn.style.color = "transparent";
     btn.style.fontWeight = "400";
     btn.style.padding = "4px 11px 6px 11px";
@@ -198,13 +199,15 @@ document.querySelectorAll(".btn").forEach((btn) => {
                 "linear-gradient(rgba(255, 255, 255, 6.98%), rgba(255, 255, 255, 6.98%))";
             this.querySelector(".overlay-inner").style.backgroundColor =
                 "#232323";
-            this.querySelector(".overlay-inner").style.color = "#fff";
+            this.querySelector(".overlay-inner").style.color =
+                "rgba(255, 255, 255, 0.5)";
         });
         btn.addEventListener("mouseup", function () {
             btn.querySelector(".overlay").style.backgroundImage =
                 "linear-gradient(180deg, rgba(255, 255, 255, 0.093) 0%, rgba(255, 255, 255, 0.0698) 9.57%)";
             this.querySelector(".overlay-inner").style.backgroundColor =
                 "#2f2f2f";
+            this.querySelector(".overlay-inner").style.color = "#fff";
         });
         if (getType(btn, "type") == "accent") {
             function color() {
