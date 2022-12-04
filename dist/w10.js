@@ -322,7 +322,6 @@ document.querySelectorAll(".text-box").forEach((field) => {
     field.style.borderRadius = "4px";
     field.style.position = "relative";
     field.style.overflow = "hidden";
-    field.style.boxShadow = "0 0 10px 0 rgba(0, 0, 0, 0.1)";
     field.insertAdjacentHTML(
         "afterbegin",
         `
@@ -351,6 +350,7 @@ document.querySelectorAll(".text-box").forEach((field) => {
     line.style.width = "100%";
     line.style.display = "block";
     line.style.backgroundColor = "red";
+    line.style.transition = ".2s ease";
     if (getTheme(field, "theme") == "light") {
         function color() {
             if (field.getAttribute("color") == null) {
@@ -359,14 +359,15 @@ document.querySelectorAll(".text-box").forEach((field) => {
                 return field.getAttribute("color");
             }
         }
-        field.style.backgroundColor = "rgba(255, 255, 255, 30%)";
+        field.style.backgroundColor = "transparent";
         input.style.border = "1px solid rgba(0, 0, 0, 10.78%)";
-        line.style.backgroundColor = "rgba(0, 0, 0, 44.58%)";
+        line.style.backgroundColor = "transparent";
         input.addEventListener("mouseover", function () {
-            field.style.backgroundColor = "#F9F9F9";
+            input.style.borderColor = "rgba(0, 0, 0, 0.2)";
+            field.style.backgroundColor = "transparent";
         });
         input.addEventListener("mouseleave", function () {
-            field.style.backgroundColor = "rgba(255, 255, 255, 30%)";
+            input.style.borderColor = "rgba(0, 0, 0, 10.78%)";
         });
         input.addEventListener("click", function () {
             field.style.backgroundColor = "#fff";
@@ -380,12 +381,62 @@ document.querySelectorAll(".text-box").forEach((field) => {
             });
         });
         input.addEventListener("blur", function () {
-            field.style.backgroundColor = "rgba(255, 255, 255, 30%)";
-            line.style.backgroundColor = "rgba(0, 0, 0, 44.58%)";
+            field.style.backgroundColor = "transparent";
+            line.style.backgroundColor = "transparent";
             line.style.height = "1px";
             input.addEventListener("mouseover", function () {
-                field.style.backgroundColor = "#f9f9f9";
+                input.style.borderColor = "rgba(0, 0, 0, 0.2)";
+                field.style.backgroundColor = "transparent";
+            });
+            input.addEventListener("mouseleave", function () {
+                field.style.backgroundColor = "transparent";
             });
         });
+    }
+    if (getTheme(field, "theme") == "dark") {
+        function color() {
+            if (field.getAttribute("color") == null) {
+                return "#60CDFF";
+            } else {
+                return field.getAttribute("color");
+            }
+        }
+        input.style.color = "#fff";
+        field.style.backgroundColor = "transparent";
+        input.style.border = "1px solid rgba(255, 255, 255, 20.78%)";
+        line.style.backgroundColor = "transparent";
+        input.addEventListener("mouseover", function () {
+            input.style.borderColor = "rgba(255, 255, 255, 0.35)";
+            field.style.backgroundColor = "transparent";
+        });
+        input.addEventListener("mouseleave", function () {
+            input.style.borderColor = "rgba(255, 255, 255, 20.78%)";
+        });
+        input.addEventListener("click", function () {
+            field.style.backgroundColor = "#000";
+            line.style.backgroundColor = color();
+            line.style.height = "2px";
+            input.addEventListener("mouseover", function () {
+                field.style.backgroundColor = "#000";
+            });
+            input.addEventListener("mouseleave", function () {
+                field.style.backgroundColor = "#000";
+            });
+        });
+        input.addEventListener("blur", function () {
+            field.style.backgroundColor = "transparent";
+            line.style.backgroundColor = "transparent";
+            line.style.height = "1px";
+            input.addEventListener("mouseover", function () {
+                input.style.borderColor = "rgba(255, 255, 255, 0.35)";
+                field.style.backgroundColor = "transparent";
+            });
+            input.addEventListener("mouseleave", function () {
+                field.style.backgroundColor = "transparent";
+            });
+        });
+    }
+    if (field.hasAttribute("text-box-block") == true) {
+        field.style.width = "100%";
     }
 });
