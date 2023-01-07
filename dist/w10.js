@@ -90,19 +90,43 @@ function zink(code) {
                         >
                         `
                     );
+                    break;
+                }
+                case "draw:circle": {
+                    var styles = property.split("|");
+                    var parameter = styles[0].split(",");
+                    var border = styles[3];
+                    function checkBorder() {
+                        if (border == undefined) {
+                            return "";
+                        } else {
+                            return border.split(",");
+                        }
+                    }
+                    body.insertAdjacentHTML(
+                        "beforeend",
+                        `
+                    <circle cx="${parameter[0]}" cy="${parameter[1]}" r="${styles[1]}" fill="${styles[2]}" stroke="${checkBorder()[1]}" stroke-width="${checkBorder()[0]}">
+                    `
+                    );
+                    break;
                 }
                 // ========== ERROR ==========
                 default: {
-                    body.insertAdjacentHTML("beforeend", `<p style='color: red'>The keyWord you typed ('${keyWord}') is not supported.</p>`);
+                    body.insertAdjacentHTML("beforeend", `<text style='color: red'>The keyWord you typed ('${keyWord}') is not supported.</text>`);
                 }
             }
         }
     });
 }
 zink(`
+#=====SETUP=====
 scr~{1000,500}
 scrBg~{#333}
 #=====DRAW=====
-draw:rect~{20,20|300,150|transparent|1,#fff}
+draw:rect~{20,20|300,150|green|1,#fff}
 draw:tri~{170,20|20,170|320,95|red|1,#fff}
+draw:circle~{170,20|10|yellow|3,green}
+draw:circle~{20,170|10|yellow|3,green}
+draw:circle~{320,95|10|yellow|3,green}
 `);
