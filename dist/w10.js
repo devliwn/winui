@@ -111,9 +111,20 @@ function zink(code) {
                     );
                     break;
                 }
+                case "text": {
+                    var styles = property.split("|");
+                    var parameter = styles[0].split(",");
+                    body.insertAdjacentHTML(
+                        "beforeend",
+                        `
+                    <text x="${parameter[0]}" y="${parameter[1]}" fill="${styles[3]}" style="font-size: ${styles[2]}px;">${styles[1]}</text>
+                    `
+                    );
+                    break;
+                }
                 // ========== ERROR ==========
                 default: {
-                    body.insertAdjacentHTML("beforeend", `<text style='color: red'>The keyWord you typed ('${keyWord}') is not supported.</text>`);
+                    body.insertAdjacentHTML("beforeend", `<text x="300" y="300" fill="red">The keyWord you typed ('${keyWord}') is not supported.</text>`);
                 }
             }
         }
@@ -129,4 +140,6 @@ draw:tri~{170,20|20,170|320,95|red|1,#fff}
 draw:circle~{170,20|10|yellow|3,green}
 draw:circle~{20,170|10|yellow|3,green}
 draw:circle~{320,95|10|yellow|3,green}
+#=====TEXT======
+text~{20,210|This is the sample text|20|green}
 `);
