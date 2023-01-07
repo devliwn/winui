@@ -44,16 +44,22 @@ function zink(code) {
                 var styles = property.split("|");
                 var position = styles[0].split(",");
                 var sizes = styles[1].split(",");
-                var radius = styles[2];
-                var color = styles[3];
-                var border = styles[4].split(",");
+                var color = styles[2];
+                var border = styles[3];
                 var parameter = `${position[0]},${position[1]} ${position[0]},${parseInt(sizes[1]) + parseInt(position[1])} ${parseInt(sizes[0]) + parseInt(position[0])},${parseInt(sizes[1]) + parseInt(position[1])} ${parseInt(sizes[0]) + parseInt(position[0])},${position[1]}`;
+                function checkBorder() {
+                    if (border == undefined) {
+                        return "";
+                    } else {
+                        return border.split(",");
+                    }
+                }
                 body.insertAdjacentHTML(
                     "beforeend",
                     `
                     <polygon
                     points="${parameter}"
-                    style="fill:${color}; stroke:${border[1]}; stroke-width:${border[0]}"
+                    style="fill:${color}; stroke:${checkBorder()[1]}; stroke-width:${checkBorder()[0]}"
                     >
                     `
                 );
@@ -61,11 +67,29 @@ function zink(code) {
             }
             case "draw:tri": {
                 var styles = property.split("|");
-                var a = styles[0].split(",");
-                var b = styles[1].split(",");
-                var c = styles[2].split(",");
+                var a = styles[0];
+                var b = styles[1];
+                var c = styles[2];
                 var color = styles[3];
-                break;
+                var border = styles[4];
+                function checkBorder() {
+                    if (border == undefined) {
+                        return "";
+                    } else {
+                        return border.split(",");
+                    }
+                }
+                var parameter = `${a} ${b} ${c}`;
+                console.log(parameter);
+                body.insertAdjacentHTML(
+                    "beforeend",
+                    `
+                    <polygon
+                    points="${parameter}"
+                    style="fill:${color}; stroke:${checkBorder()[1]}; stroke-width:${checkBorder()[0]}"
+                    >
+                    `
+                );
             }
             // ========== COMMENT ==========
             case "?": {
@@ -82,6 +106,6 @@ zink(`
 scr~{1000,500}
 scrBg~{#333}
 ?~{=====DRAW=====}
-draw:rect~{20,20|300,150|0|transparent|1,#fff}
-draw:tri~{20,50|95,320|170,20|red}
+draw:rect~{20,20|300,150|transparent|1,#fff}
+draw:tri~{170,20|20,170|320,95|red|1,#fff}
 `);
